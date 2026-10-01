@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografis Catatan Belajar: Rundown & Jadwal Sidang PKL 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts for Handwriting & Cute Studygram Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Fredoka:wght@400;500;600;700&family=Patrick+Hand&family=Quicksand:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        handwriting: ['Patrick Hand', 'cursive'],
+                        titlehand: ['Architects Daughter', 'cursive'],
+                        sans: ['Fredoka', 'Quicksand', 'sans-serif'],
+                    },
+                    colors: {
+                        pastelYellow: '#FFF3BF',
+                        pastelPink: '#FBCFE8',
+                        pastelBlue: '#E0F2FE',
+                        pastelGreen: '#D1FAE5',
+                        pastelPurple: '#E9D5FF',
+                        pastelOrange: '#FFEDD5',
+                        notebookGrid: '#e2e8f0',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Textured Notebook Grid Background */
+        body {
+            background-color: #fcfbf7;
+            background-image:
+                linear-gradient(to right, rgba(226, 232, 240, 0.5) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(226, 232, 240, 0.5) 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: #1e293b;
+        }
+
+        /* Printable A4 Page Boundaries */
+        .a4-container {
+            width: 100%;
+            max-width: 860px;
+            min-height: 1150px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Highlighter Effects (Stabilo Transparan) */
+        .hl-yellow {
+            background: linear-gradient(120deg, rgba(254, 240, 138, 0.85) 0%, rgba(253, 224, 71, 0.9) 100%);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            padding: 2px 6px;
+        }
+
+        .hl-pink {
+            background: linear-gradient(120deg, rgba(251, 207, 232, 0.85) 0%, rgba(244, 114, 182, 0.85) 100%);
+            border-radius: 4px;
+            padding: 2px 6px;
+        }
+
+        .hl-blue {
+            background: linear-gradient(120deg, rgba(224, 242, 254, 0.85) 0%, rgba(125, 211, 252, 0.85) 100%);
+            border-radius: 4px;
+            padding: 2px 6px;
+        }
+
+        .hl-green {
+            background: linear-gradient(120deg, rgba(209, 250, 229, 0.85) 0%, rgba(110, 231, 183, 0.85) 100%);
+            border-radius: 4px;
+            padding: 2px 6px;
+        }
+
+        .hl-purple {
+            background: linear-gradient(120deg, rgba(233, 213, 255, 0.85) 0%, rgba(192, 132, 252, 0.85) 100%);
+            border-radius: 4px;
+            padding: 2px 6px;
+        }
+
+        .hl-orange {
+            background: linear-gradient(120deg, rgba(254, 215, 170, 0.85) 0%, rgba(251, 146, 60, 0.85) 100%);
+            border-radius: 4px;
+            padding: 2px 6px;
+        }
+
+        /* Masking Tape / Washi Tape Effect */
+        .washi-tape {
+            background-color: rgba(254, 240, 138, 0.75);
+            background-image: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.4) 0, rgba(255, 255, 255, 0.4) 8px, transparent 0, transparent 16px);
+            border-left: 2px stroke rgba(0, 0, 0, 0.1);
+            border-right: 2px stroke rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            transform: rotate(-1.5deg);
+        }
+
+        .washi-tape-pink {
+            background-color: rgba(251, 207, 232, 0.8);
+            background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.4) 0, rgba(255, 255, 255, 0.4) 6px, transparent 0, transparent 12px);
+            transform: rotate(1.2deg);
+        }
+
+        .washi-tape-blue {
+            background-color: rgba(186, 230, 253, 0.8);
+            transform: rotate(-1deg);
+        }
+
+        /* Sticky Notes & Hand-Drawn Borders */
+        .sticky-note {
+            box-shadow: 3px 4px 12px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .sticky-note:hover {
+            transform: translateY(-2px) rotate(0deg) scale(1.01);
+            box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 290px;
+            margin: 0 auto;
+            height: 170px;
+        }
+
+        /* Hide elements on PDF export / Print Mode */
+        @media print {
+            body {
+                background-image: none !important;
+                background-color: #ffffff !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .a4-container {
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: 100% !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased p-2 sm:p-6 text-slate-800">
+
+    <div
+        class="no-print max-w-4xl mx-auto mb-6 bg-white rounded-2xl p-4 shadow-md border border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center space-x-2">
+            <span class="text-2xl">✨</span>
+            <div>
+                <h1 class="font-bold text-slate-900 text-sm sm:text-base">Infografis Catatan Belajar PKL (Format 30
+                    Menit)</h1>
+                <p class="text-xs text-slate-500">Mata Pelajaran PKL Kelas XII / Fase F • Mode Tablet Digital Notes</p>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+            <button onclick="window.print()"
+                class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-xl transition flex items-center space-x-1 shadow-sm">
+                <span>🖨️ Cetak / Simpan A4 PDF</span>
+            </button>
+            <button onclick="toggleTimerModal()"
+                class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition flex items-center space-x-1 shadow-sm">
+                <span>⏱️ Timer Presentasi (15' + 15')</span>
+            </button>
+        </div>
+    </div>
+
+    <div
+        class="a4-container bg-white rounded-3xl shadow-xl border border-stone-200/80 p-5 sm:p-8 relative overflow-hidden my-2">
+
+        <!-- Decorative Binder Line on Left side -->
+        <div
+            class="absolute left-2 top-0 bottom-0 w-1 flex flex-col justify-around py-8 pointer-events-none opacity-30">
+            <div class="w-3 h-3 rounded-full bg-slate-400 -ml-1"></div>
+            <div class="w-3 h-3 rounded-full bg-slate-400 -ml-1"></div>
+            <div class="w-3 h-3 rounded-full bg-slate-400 -ml-1"></div>
+            <div class="w-3 h-3 rounded-full bg-slate-400 -ml-1"></div>
+            <div class="w-3 h-3 rounded-full bg-slate-400 -ml-1"></div>
+        </div>
+
+        <!-- HEADER SECTION -->
+        <header class="relative mb-6 pl-3 sm:pl-6">
+            <div
+                class="absolute -top-3 right-4 px-6 py-1 washi-tape text-[11px] font-handwriting font-bold text-slate-700 rounded-sm">
+                📌 Catatan Penting Siswa & Penguji
+            </div>
+
+            <div
+                class="flex flex-wrap items-start justify-between gap-2 border-b-2 border-dashed border-slate-200 pb-4">
+                <div>
+                    <div
+                        class="inline-block bg-pink-100 text-pink-700 text-xs font-bold px-2.5 py-0.5 rounded-full mb-1">
+                        ✨ MAPEL PKL • KELAS XII / FASE F
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-titlehand font-bold text-slate-900 leading-tight">
+                        Rundown & Jadwal <span class="hl-yellow">Sidang PKL 2026</span> 🎓
+                    </h1>
+                    <p class="font-handwriting text-base sm:text-lg text-slate-600 mt-1">
+                        Panduan Pelaksanaan Penjemputan, Penyusunan Laporan, hingga Ujian Sidang Lisan!
+                    </p>
+                </div>
+
+                <div
+                    class="text-right font-handwriting text-xs sm:text-sm bg-yellow-50 p-2.5 rounded-2xl border border-yellow-200">
+                    <p class="font-bold text-slate-800">🗓️ Sidang: Jumat, 2 Okt 2026</p>
+                    <p class="text-slate-600">👥 Total Peserta: <span class="hl-pink font-bold text-slate-900">15
+                            Siswa</span></p>
+                    <p class="text-slate-700 font-bold">⏱️ Alokasi: <span class="hl-green">30 Mnt / Siswa</span></p>
+                </div>
+            </div>
+        </header>
+
+        <section class="mb-6 pl-3 sm:pl-6">
+            <div class="flex items-center space-x-2 mb-3">
+                <span class="text-xl">📅</span>
+                <h2 class="font-titlehand text-xl font-bold text-slate-900">
+                    1. Timeline Utama Rangkaian PKL
+                </h2>
+                <span class="hl-green text-xs font-bold">Wajib Dicatat!</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+
+                <!-- Card 1: Penjemputan -->
+                <div
+                    class="sticky-note bg-pastelGreen rounded-2xl p-3.5 border border-emerald-200 relative transform -rotate-1">
+                    <div
+                        class="washi-tape-blue absolute -top-2 left-1/3 px-4 py-0.5 text-[9px] font-bold text-slate-600">
+                        TAHAP 1
+                    </div>
+                    <div class="flex justify-between items-start mt-1">
+                        <span class="text-xs font-bold text-emerald-800 bg-white/80 px-2 py-0.5 rounded-full">
+                            22 Sep 2026
+                        </span>
+                        <span class="text-lg">🚗</span>
+                    </div>
+                    <h3 class="font-titlehand text-base font-bold text-slate-900 mt-2">Penjemputan Siswa PKL</h3>
+                    <p class="font-handwriting text-sm text-slate-700 leading-snug mt-1">
+                        Penarikan resmi di DUDI oleh Pembimbing Sekolah. Waktu penjemputan fleksibel menyesuaikan jam
+                        kerja industri.
+                    </p>
+                </div>
+
+                <!-- Card 2: Laporan & Deadline -->
+                <div
+                    class="sticky-note bg-pastelYellow rounded-2xl p-3.5 border border-yellow-300 relative transform rotate-1">
+                    <div class="washi-tape absolute -top-2 left-1/3 px-4 py-0.5 text-[9px] font-bold text-slate-600">
+                        TAHAP 2
+                    </div>
+                    <div class="flex justify-between items-start mt-1">
+                        <span class="text-xs font-bold text-amber-800 bg-white/80 px-2 py-0.5 rounded-full">
+                            23 - 25 Sep 2026
+                        </span>
+                        <span class="text-lg">📚</span>
+                    </div>
+                    <h3 class="font-titlehand text-base font-bold text-slate-900 mt-2">Penyusunan & Deadline</h3>
+                    <p class="font-handwriting text-sm text-slate-700 leading-snug mt-1">
+                        Bimbingan intensif di Lab 1. <span class="hl-pink font-bold">Deadline: 25 Sep Pkl 15.00
+                            WIB</span> kumpulkan 3 rangkap dokumen fisik untuk 3 penguji.
+                    </p>
+                </div>
+
+                <!-- Card 3: Sidang PKL -->
+                <div
+                    class="sticky-note bg-pastelPink rounded-2xl p-3.5 border border-pink-300 relative transform -rotate-1">
+                    <div
+                        class="washi-tape-pink absolute -top-2 left-1/3 px-4 py-0.5 text-[9px] font-bold text-slate-600">
+                        HARI-H SIDANG!
+                    </div>
+                    <div class="flex justify-between items-start mt-1">
+                        <span class="text-xs font-bold text-pink-800 bg-white/80 px-2 py-0.5 rounded-full">
+                            Jumat, 2 Okt 2026
+                        </span>
+                        <span class="text-lg">🎯</span>
+                    </div>
+                    <h3 class="font-titlehand text-base font-bold text-slate-900 mt-2">Sidang Ujian di Aula</h3>
+                    <p class="font-handwriting text-sm text-slate-700 leading-snug mt-1">
+                        Pelaksanaan pukul <span class="hl-yellow font-bold">07.30 – 17.35 WIB</span>. 15 Siswa diuji 3
+                        Penguji disaksikan adik kelas dengan timer OSIS!
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="mb-6 pl-3 sm:pl-6">
+            <div
+                class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-amber-50/60 rounded-2xl p-4 border-2 border-dashed border-amber-200">
+
+                <!-- Left Details (2 Cols) -->
+                <div class="md:col-span-2 space-y-2.5">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xl">⏱️</span>
+                        <h2 class="font-titlehand text-xl font-bold text-slate-900">
+                            2. Aturan & Proporsi Waktu Ujian (30 Mnt / Siswa)
+                        </h2>
+                    </div>
+
+                    <p class="font-handwriting text-sm text-slate-700 leading-relaxed">
+                        Setiap peserta dialokasikan total waktu <span class="hl-yellow font-bold">30 Menit</span> (15' Presentasi + 15' Tanya Jawab), diselingi Coffee Break & ISHOMA Sholat Jumat:
+                    </p>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-center pt-1">
+                        <div class="bg-white rounded-xl p-2.5 border border-slate-200 shadow-sm">
+                            <span class="text-xs font-bold text-emerald-700 block">🎤 PRESENTASI</span>
+                            <span class="font-titlehand text-xl font-bold text-slate-900">15 Menit</span>
+                            <span class="text-[10px] text-slate-500 block">Maks. 10–12 Slide</span>
+                        </div>
+
+                        <div class="bg-white rounded-xl p-2.5 border border-slate-200 shadow-sm">
+                            <span class="text-xs font-bold text-sky-700 block">💬 TANYA JAWAB</span>
+                            <span class="font-titlehand text-xl font-bold text-slate-900">15 Menit</span>
+                            <span class="text-[10px] text-slate-500 block">3 Ranah Penguji</span>
+                        </div>
+
+                        <div
+                            class="bg-white rounded-xl p-2.5 border border-slate-200 shadow-sm col-span-2 sm:col-span-1">
+                            <span class="text-xs font-bold text-amber-700 block">☕ REHAT & ISHOMA</span>
+                            <span class="font-titlehand text-xl font-bold text-slate-900">15' & 75'</span>
+                            <span class="text-[10px] text-slate-500 block">10.30 & 11.45 (Jumatan)</span>
+                        </div>
+                    </div>
+
+                    <!-- Highlight Note -->
+                    <div
+                        class="bg-sky-100/80 rounded-xl p-2.5 border border-sky-200 text-xs text-sky-900 flex items-start space-x-2">
+                        <span class="text-base">💡</span>
+                        <span><strong>Pembagian Waktu Tanya Jawab (15 Menit):</strong> Penguji Kejuruan (~6 Menit),
+                            Penguji Isi Laporan (~5 Menit), dan Penguji Tata Bahasa (~4 Menit). Time Keeper OSIS
+                            mengangkat plakat <strong>Kuning</strong> pada menit ke-13 dan plakat <strong>Merah</strong>
+                            pada menit ke-15.</span>
+                    </div>
+                </div>
+
+                <!-- Right Donut Chart Visualizer -->
+                <div
+                    class="flex flex-col items-center justify-center bg-white rounded-2xl p-3 border border-stone-200 shadow-sm">
+                    <h3 class="font-titlehand text-xs font-bold text-slate-700 mb-1">Visual Total Waktu (605 Menit)</h3>
+                    <div class="chart-container">
+                        <canvas id="timeBreakdownChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="mb-6 pl-3 sm:pl-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <div class="flex items-center space-x-2">
+                    <span class="text-xl">📋</span>
+                    <h2 class="font-titlehand text-xl font-bold text-slate-900">
+                        3. Jadwal Detail Sidang 15 Siswa (30 Menit / Siswa)
+                    </h2>
+                </div>
+
+                <!-- Interactive Filters for Table -->
+                <div class="no-print flex items-center space-x-1 text-xs">
+                    <span class="font-bold text-slate-600">Filter:</span>
+                    <button onclick="filterSession('ALL')"
+                        class="px-2 py-1 bg-slate-200 hover:bg-slate-300 rounded-lg text-slate-800 font-bold active-btn"
+                        id="btn-ALL">Semua</button>
+                    <button onclick="filterSession('SESI I')"
+                        class="px-2 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 rounded-lg font-bold"
+                        id="btn-SESI I">Sesi 1 (5)</button>
+                    <button onclick="filterSession('SESI II')"
+                        class="px-2 py-1 bg-sky-100 hover:bg-sky-200 text-sky-800 rounded-lg font-bold"
+                        id="btn-SESI II">Sesi 2 (2)</button>
+                    <button onclick="filterSession('SESI III')"
+                        class="px-2 py-1 bg-purple-100 hover:bg-purple-200 text-purple-800 rounded-lg font-bold"
+                        id="btn-SESI III">Sesi 3 (8)</button>
+                </div>
+            </div>
+
+            <p class="font-handwriting text-sm text-slate-600 mb-2">
+                *Klik pada baris nama peserta untuk memberikan sorotan (*highlight*) jadwal kamu!
+            </p>
+
+            <!-- Table Container -->
+            <div class="overflow-x-auto rounded-2xl border border-stone-300 shadow-sm bg-white">
+                <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                    <thead>
+                        <tr class="bg-amber-100/80 text-amber-950 font-titlehand border-b border-amber-200">
+                            <th class="p-2 sm:p-2.5 text-center w-10">No</th>
+                            <th class="p-2 sm:p-2.5">Sesi</th>
+                            <th class="p-2 sm:p-2.5">Jam Ujian (WIB)</th>
+                            <th class="p-2 sm:p-2.5">Agenda / Nama Peserta</th>
+                            <th class="p-2 sm:p-2.5">Rincian Alokasi (30')</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTableBody" class="divide-y divide-stone-200 font-sans">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="mb-6 pl-3 sm:pl-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <!-- Student Prep Checklist (Studygram style) -->
+            <div class="sticky-note bg-pastelPurple/60 rounded-2xl p-4 border border-purple-200 relative">
+                <div class="washi-tape-pink absolute -top-2 left-6 px-4 py-0.5 text-[10px] font-bold text-slate-700">
+                    CHECKLIST PESERTA
+                </div>
+                <h3 class="font-titlehand text-base font-bold text-slate-900 mt-1 mb-2 flex items-center space-x-2">
+                    <span>✅</span> <span>Persiapan Sebelum Masuk Aula</span>
+                </h3>
+                <div class="space-y-1.5 font-handwriting text-sm text-slate-800">
+                    <label class="flex items-center space-x-2 cursor-pointer hover:text-purple-900">
+                        <input type="checkbox" class="w-4 h-4 text-purple-600 rounded focus:ring-purple-400">
+                        <span>Seragam resmi sekolah / Jas Almamater & Bersepatu Hitam</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer hover:text-purple-900">
+                        <input type="checkbox" class="w-4 h-4 text-purple-600 rounded focus:ring-purple-400">
+                        <span>Slide PPT (maks. 10-12 slide) sudah masuk laptop proyektor</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer hover:text-purple-900">
+                        <input type="checkbox" class="w-4 h-4 text-purple-600 rounded focus:ring-purple-400">
+                        <span>Buku Laporan Fisik 3 Rangkap sudah di meja 3 Penguji</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer hover:text-purple-900">
+                        <input type="checkbox" class="w-4 h-4 text-purple-600 rounded focus:ring-purple-400">
+                        <span>Hadir di Sekolah Pukul 07.30 WIB & Briefing Pra-Sidang</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer hover:text-purple-900">
+                        <input type="checkbox" class="w-4 h-4 text-purple-600 rounded focus:ring-purple-400">
+                        <span>Menunggu giliran di Ruang Lab 1 bersama Guru Pembimbing</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Notes & Motivation Doodle Box -->
+            <div class="sticky-note bg-pastelOrange/60 rounded-2xl p-4 border border-orange-200 relative">
+                <div class="washi-tape absolute -top-2 right-6 px-4 py-0.5 text-[10px] font-bold text-slate-700">
+                    DOKUMEN & REVISI
+                </div>
+                <h3 class="font-titlehand text-base font-bold text-slate-900 mt-1 mb-2 flex items-center space-x-2">
+                    <span>📌</span> <span>Aturan Revisi Pasca Sidang</span>
+                </h3>
+                <p class="font-handwriting text-sm text-slate-700 leading-relaxed mb-2">
+                    Bagi siswa yang mendapatkan catatan perbaikan dari Dewan Penguji:
+                </p>
+                <ul class="font-handwriting text-sm text-slate-800 space-y-1 list-disc pl-4">
+                    <li>Batas waktu perbaikan laporan: <strong class="text-orange-900">3 – 5 hari kalender</strong>
+                        (maks. 7 Okt 2026).</li>
+                    <li>Lembar pengesahan revisi wajib ditandatangani oleh **3 Penguji**.</li>
+                    <li>Laporan dijilid permanen (*hardcover*) setelah disetujui penguji.</li>
+                </ul>
+                <div class="mt-2 text-center">
+                    <span
+                        class="inline-block bg-white/90 text-slate-800 font-titlehand font-bold text-xs px-3 py-1 rounded-full border border-orange-300">
+                        🌟 "Kuasai Kode & Proyekmu, Percaya Diri Kuncinya!" 🌟
+                    </span>
+                </div>
+            </div>
+
+        </section>
+
+        <footer
+            class="pl-3 sm:pl-6 pt-3 border-t border-dashed border-stone-300 flex flex-col sm:flex-row justify-between items-center text-xs font-handwriting text-slate-500 gap-2">
+            <div>
+                <span>Disusun Oleh: Panitia Pelaksana Sidang PKL 2026 • Program Keahlian RPL</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="hl-yellow text-slate-800 font-bold">Sukabumi, 2 Oktober 2026</span>
+                <span>✏️ Catatan Digital Stylus</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <div id="timerModal"
+        class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div
+            class="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border-4 border-emerald-400 relative space-y-4 text-center">
+            <button onclick="toggleTimerModal()"
+                class="absolute top-3 right-3 text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
+
+            <span class="inline-block bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">
+                ⏱️ SIMULATOR WAKTU SIDANG (30 MENIT)
+            </span>
+
+            <h3 id="timerTitle" class="font-titlehand text-xl font-bold text-slate-900">Sesi Presentasi Siswa</h3>
+
+            <div class="py-2">
+                <span id="timerDigits" class="font-mono text-5xl font-black text-slate-900 tracking-wider">15:00</span>
+            </div>
+
+            <!-- In-App Notification Message (No Alert) -->
+            <div id="timerToast"
+                class="hidden p-2 rounded-xl bg-rose-100 border border-rose-300 text-rose-900 text-xs font-bold font-titlehand animate-bounce">
+                🔔 Waktu Sesi Ini Telah Selesai!
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
+                <div id="timerProgressBar" class="bg-emerald-500 h-full w-full transition-all duration-300"></div>
+            </div>
+
+            <div class="flex items-center justify-center space-x-2 pt-2">
+                <button id="btnStart" onclick="startTimer()"
+                    class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow">▶️
+                    Mulai</button>
+                <button id="btnPause" onclick="pauseTimer()"
+                    class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow">⏸️
+                    Jeda</button>
+                <button id="btnReset" onclick="resetTimer()"
+                    class="px-4 py-2 bg-slate-600 hover:bg-slate-700 text-white font-bold text-xs rounded-xl shadow">🔄
+                    Reset</button>
+            </div>
+
+            <div class="pt-2 border-t border-slate-200">
+                <button onclick="switchTimerMode()" id="btnSwitch"
+                    class="text-xs font-bold text-sky-700 hover:underline">
+                    Ganti ke Mode: Tanya Jawab Penguji (15')
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scheduleList = [
+            { no: '-', session: 'PRE-SHOW', time: '07.30 – 08.00', duration: '30\'', agenda: 'Registrasi Siswa & Briefing Dewan Penguji', desc: 'Kesiapan panggung aula, proyektor, & lembar nilai 3 penguji', type: 'break' },
+            { no: '1', session: 'SESI I', time: '08.00 – 08.30', duration: '30\'', agenda: 'Siti Nurlaila', desc: 'Pres: 08.00–08.15 | Q&A: 08.15–08.30', type: 'student' },
+            { no: '2', session: 'SESI I', time: '08.30 – 09.00', duration: '30\'', agenda: 'Rheina Zaskya Eka Putri', desc: 'Pres: 08.30–08.45 | Q&A: 08.45–09.00', type: 'student' },
+            { no: '3', session: 'SESI I', time: '09.00 – 09.30', duration: '30\'', agenda: 'M Faiz Althaful Fawazi', desc: 'Pres: 09.00–09.15 | Q&A: 09.15–09.30', type: 'student' },
+            { no: '4', session: 'SESI I', time: '09.30 – 10.00', duration: '30\'', agenda: 'Zahra Anindita', desc: 'Pres: 09.30–09.45 | Q&A: 09.45–10.00', type: 'student' },
+            { no: '5', session: 'SESI I', time: '10.00 – 10.30', duration: '30\'', agenda: 'Agustina Mulyawati', desc: 'Pres: 10.00–10.15 | Q&A: 10.15–10.30', type: 'student' },
+            { no: '☕', session: 'REHAT 1', time: '10.30 – 10.45', duration: '15\'', agenda: 'Coffee Break & Rehat Penguji', desc: 'Snack pagi, istirahat penguji, & peserta Sesi II bersiap di Lab 1', type: 'break' },
+            { no: '6', session: 'SESI II', time: '10.45 – 11.15', duration: '30\'', agenda: 'Rizky Kurniawan', desc: 'Pres: 10.45–11.00 | Q&A: 11.00–11.15', type: 'student' },
+            { no: '7', session: 'SESI II', time: '11.15 – 11.45', duration: '30\'', agenda: 'Rangga Putra Pratama', desc: 'Pres: 11.15–11.30 | Q&A: 11.30–11.45', type: 'student' },
+            { no: '🍱', session: 'REHAT 2', time: '11.45 – 13.00', duration: '75\'', agenda: 'ISHOMA (Sholat Jumat & Makan Siang)', desc: 'Istirahat makan siang & ibadah Sholat Jumat bersama', type: 'break' },
+            { no: '8', session: 'SESI III', time: '13.00 – 13.30', duration: '30\'', agenda: 'Najla Setya Dayini', desc: 'Pres: 13.00–13.15 | Q&A: 13.15–13.30', type: 'student' },
+            { no: '9', session: 'SESI III', time: '13.30 – 14.00', duration: '30\'', agenda: 'Izzanatun Nuriah', desc: 'Pres: 13.30–13.45 | Q&A: 13.45–14.00', type: 'student' },
+            { no: '10', session: 'SESI III', time: '14.00 – 14.30', duration: '30\'', agenda: 'Keysha Zahira Azzahra', desc: 'Pres: 14.00–14.15 | Q&A: 14.15–14.30', type: 'student' },
+            { no: '11', session: 'SESI III', time: '14.30 – 15.00', duration: '30\'', agenda: 'Clarisa Angelika Salim', desc: 'Pres: 14.30–14.45 | Q&A: 14.45–15.00', type: 'student' },
+            { no: '12', session: 'SESI III', time: '15.00 – 15.30', duration: '30\'', agenda: 'Vina Vinterlix', desc: 'Pres: 15.00–15.15 | Q&A: 15.15–15.30', type: 'student' },
+            { no: '13', session: 'SESI III', time: '15.30 – 16.00', duration: '30\'', agenda: 'Reni Anggraeni', desc: 'Pres: 15.30–15.45 | Q&A: 15.45–16.00', type: 'student' },
+            { no: '14', session: 'SESI III', time: '16.00 – 16.30', duration: '30\'', agenda: 'Mikha Andriyana Naptali Sardi', desc: 'Pres: 16.00–16.15 | Q&A: 16.15–16.30', type: 'student' },
+            { no: '15', session: 'SESI III', time: '16.30 – 17.00', duration: '30\'', agenda: 'Hendy Imanuel Alexander Purba', desc: 'Pres: 16.30–16.45 | Q&A: 16.45–17.00', type: 'student' },
+            { no: '-', session: 'PLENO', time: '17.00 – 17.20', duration: '20\'', agenda: 'Rapat Pleno Dewan Penguji', desc: 'Rekapitulasi gabungan nilai 3 penguji & yudisium', type: 'break' },
+            { no: '-', session: 'PENUTUP', time: '17.20 – 17.35', duration: '15\'', agenda: 'Pengarahan Akhir & Penutupan Sidang', desc: 'Pengarahan revisi laporan 3–5 hari oleh panitia', type: 'break' }
+        ];
+
+        let currentFilter = 'ALL';
+        let highlightedIndex = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTable();
+            initChart();
+        });
+
+        function renderTable() {
+            const tbody = document.getElementById('studentTableBody');
+            tbody.innerHTML = '';
+
+            scheduleList.forEach((item, index) => {
+                if (currentFilter !== 'ALL' && item.session !== currentFilter && item.type !== 'break') {
+                    return;
+                }
+
+                const tr = document.createElement('tr');
+                const isHighlighted = highlightedIndex === index;
+
+                if (item.type === 'break') {
+                    tr.className = 'bg-amber-50/70 font-semibold text-amber-900 border-b border-amber-100';
+                } else {
+                    tr.className = `cursor-pointer transition hover:bg-yellow-100/60 ${isHighlighted ? 'bg-yellow-200/90 font-bold border-l-4 border-amber-500' : 'hover:bg-stone-50'}`;
+                    tr.onclick = () => {
+                        highlightedIndex = highlightedIndex === index ? null : index;
+                        renderTable();
+                    };
+                }
+
+                let sessionBadgeClass = 'bg-slate-200 text-slate-800';
+                if (item.session === 'SESI I') sessionBadgeClass = 'bg-emerald-100 text-emerald-800';
+                if (item.session === 'SESI II') sessionBadgeClass = 'bg-sky-100 text-sky-800';
+                if (item.session === 'SESI III') sessionBadgeClass = 'bg-purple-100 text-purple-800';
+                if (item.type === 'break') sessionBadgeClass = 'bg-amber-200 text-amber-900';
+
+                let descDisplay = item.desc;
+                if (item.type === 'student' && item.desc.includes('|')) {
+                    const parts = item.desc.split('|');
+                    descDisplay = `<div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px] sm:text-xs">
+                        <span class="bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200 font-semibold">${parts[0].trim()}</span>
+                        <span class="bg-sky-50 text-sky-800 px-2 py-0.5 rounded border border-sky-200 font-semibold">${parts[1].trim()}</span>
+                    </div>`;
+                }
+
+                tr.innerHTML = `
+                    <td class="p-2 sm:p-2.5 text-center font-titlehand font-bold text-slate-700">${item.no}</td>
+                    <td class="p-2 sm:p-2.5"><span class="px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-bold ${sessionBadgeClass}">${item.session}</span></td>
+                    <td class="p-2 sm:p-2.5 font-mono text-slate-800 text-xs sm:text-sm font-semibold">${item.time}</td>
+                    <td class="p-2 sm:p-2.5 font-titlehand font-bold text-slate-900 text-xs sm:text-sm">
+                        ${item.agenda} ${isHighlighted ? '✨ (Pilihan Kamu)' : ''}
+                    </td>
+                    <td class="p-2 sm:p-2.5 text-slate-600 text-xs font-handwriting">${descDisplay}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterSession(session) {
+            currentFilter = session;
+
+            ['ALL', 'SESI I', 'SESI II', 'SESI III'].forEach(s => {
+                const btn = document.getElementById(`btn-${s}`);
+                if (s === session) {
+                    btn.classList.add('ring-2', 'ring-amber-500', 'shadow-sm');
+                } else {
+                    btn.classList.remove('ring-2', 'ring-amber-500', 'shadow-sm');
+                }
+            });
+
+            renderTable();
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('timeBreakdownChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Presentasi 15x15m (225m)', 'Tanya Jawab 15x15m (225m)', 'Rehat & Ishoma Jumat (90m)', 'Briefing/Pleno/Tutup (65m)'],
+                    datasets: [{
+                        data: [225, 225, 90, 65],
+                        backgroundColor: ['#D1FAE5', '#E0F2FE', '#FFF3BF', '#FBCFE8'],
+                        borderColor: ['#059669', '#0284c7', '#d97706', '#db2777'],
+                        borderWidth: 1.5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => ` ${ctx.label}: ${ctx.raw} Menit`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        let timerSeconds = 900; // 15 minutes default
+        let timerInterval = null;
+        let isPresMode = true;
+
+        function toggleTimerModal() {
+            const modal = document.getElementById('timerModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function startTimer() {
+            if (timerInterval) return;
+            document.getElementById('timerToast').classList.add('hidden');
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerUI();
+                } else {
+                    pauseTimer();
+                    const toast = document.getElementById('timerToast');
+                    toast.innerText = isPresMode ? "🔔 Waktu Presentasi 15 Menit Telah Selesai!" : "🔔 Waktu Tanya Jawab 15 Menit Telah Selesai!";
+                    toast.classList.remove('hidden');
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timerSeconds = 900;
+            document.getElementById('timerToast').classList.add('hidden');
+            updateTimerUI();
+        }
+
+        function switchTimerMode() {
+            pauseTimer();
+            isPresMode = !isPresMode;
+            document.getElementById('timerTitle').innerText = isPresMode ? "Sesi Presentasi Siswa" : "Sesi Tanya Jawab Penguji";
+            document.getElementById('btnSwitch').innerText = isPresMode ? "Ganti ke Mode: Tanya Jawab Penguji (15')" : "Ganti ke Mode: Presentasi Siswa (15')";
+            timerSeconds = 900;
+            document.getElementById('timerToast').classList.add('hidden');
+            updateTimerUI();
+        }
+
+        function updateTimerUI() {
+            const mins = Math.floor(timerSeconds / 60);
+            const secs = timerSeconds % 60;
+            document.getElementById('timerDigits').innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+            const percentage = (timerSeconds / 900) * 100;
+            document.getElementById('timerProgressBar').style.width = `${percentage}%`;
+        }
+    </script>
+</body>
+
+</html>
